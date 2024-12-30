@@ -15,6 +15,9 @@ class AAuraPlayerController : APlayerController {
 	UPROPERTY(DefaultComponent)
 	USplineComponent MovementSpline;
 
+	USpringArmComponent PlayerCameraBoom;
+
+
 	// Members
 	AAuraCharacter OwnerCharacter;
 	AAuraEnemy LastEnemy;
@@ -49,6 +52,8 @@ class AAuraPlayerController : APlayerController {
 		ClickToMove.Ctor(this);
 
 		OwnerCharacter = Cast<AAuraCharacter>(ControlledPawn);
+		PlayerCameraBoom = Cast<USpringArmComponent>(ControlledPawn.GetComponentByClass(USpringArmComponent::StaticClass()));
+
 	}
 
 	UFUNCTION(BlueprintOverride)
@@ -140,15 +145,25 @@ class AAuraPlayerController : APlayerController {
 	UFUNCTION()
 	void Move(FInputActionValue ActionValue, float32 ElapsedTime, float32 TriggeredTime, const UInputAction SourceAction) {
 		ClickToMove.StopAutoRun();
-		FRotator ControllerRotation = GetControlRotation();
-		ControllerRotation.Pitch = 0.f;
-		ControllerRotation.Roll = 0.f;
-		FVector ControllerForwardVector = ControllerRotation.GetForwardVector();
-		FVector ControllerRightVector = ControllerRotation.GetRightVector();
+		////replaced with my controller for camera change
+		//FRotator ControllerRotation = GetControlRotation();
+		//ControllerRotation.Pitch = 0.f;
+		//ControllerRotation.Roll = 0.f;
+		//FVector ControllerForwardVector = ControllerRotation.GetForwardVector();
+		//FVector ControllerRightVector = ControllerRotation.GetRightVector();
 
-		APawn MyControlledPawn = GetControlledPawn();
-		MyControlledPawn.AddMovementInput(ControllerForwardVector, ActionValue.Axis2D.Y);
-		MyControlledPawn.AddMovementInput(ControllerRightVector, ActionValue.Axis2D.X);
+		//APawn MyControlledPawn = GetControlledPawn();
+		//MyControlledPawn.AddMovementInput(ControllerForwardVector, ActionValue.Axis2D.Y);
+		//MyControlledPawn.AddMovementInput(ControllerRightVector, ActionValue.Axis2D.X);
+		FVector2D MovementVector = ActionValue.Axis2D; 
+		const FRotator Rotation = GetControlRotation();
+		const FRotator YawRotationForward(PlayerCameraBoom.RelativeRotation.Pitch, PlayerCameraBoom.RelativeRotation.Yaw, 0);
+		const FRotator YawRotationRight(0, PlayerCameraBoom.RelativeRotation.Yaw, 0);
+		const FVector ForwardDirection = YawRotationForward.ForwardVector;
+		const FVector RightdDirection = YawRotationRight.RightVector;
+		ControlledPawn.AddMovementInput(ForwardDirection, MovementVector.Y);
+		ControlledPawn.AddMovementInput(RightdDirection, MovementVector.X);
+		
 	}
 
 	UFUNCTION() // Pressed
