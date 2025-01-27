@@ -30,11 +30,6 @@ class UAGA_HitReact : UAuraGameplayAbility {
 		Print("OnHitReactMontageCompleted");
 		EndAbility();
 		AAuraCharacterBase AvatarActor = GasUtil::GetAvatarCharacterFromAbility(this);
-		if(AvatarActor.IsHealthCiritical())
-		{
-			AvatarActor.AbilitySystem.AddLooseGameplayTag(GameplayTags::Effects_IsHealthCritical);
-			Print("EnemyHealthCritical");
-		}
 		AvatarActor.AbilitySystem.RemoveLooseGameplayTag(GameplayTags::Effects_HitReact);
 
 

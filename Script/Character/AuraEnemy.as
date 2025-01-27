@@ -73,6 +73,11 @@ class AAuraEnemy : AAuraCharacterBase {
 			if (HealthBarWidget != nullptr) {
 				HealthBarWidget.SetPercent(GasModule.GetAttributeValue(AuraAttributes::Health), GasModule.GetAttributeValue(AuraAttributes::MaxHealth));
 			}
+			if(IsHealthCiritical())
+			{
+				AbilitySystem.AddLooseGameplayTag(GameplayTags::Effects_IsHealthCritical);
+				Print("EnemyHealthCritical");
+			}
 		}
 	}
 
