@@ -113,6 +113,11 @@ class AAuraCharacterBase : AAngelscriptGASCharacter {
 		return GasModule.GetAttributeValue(AuraAttributes::Health) <= 0;
 	}
 
+	bool IsHealthCiritical()
+	{
+		return GasModule.GetAttributeValue(AuraAttributes::Health) <= GasModule.GetAttributeValue(AuraAttributes::MaxHealth) * 0.3;
+	}
+
 	void Die() {
 		// Ragdoll Die
 		Weapon.DetachFromComponent(EDetachmentRule::KeepWorld, EDetachmentRule::KeepWorld, EDetachmentRule::KeepWorld, true);

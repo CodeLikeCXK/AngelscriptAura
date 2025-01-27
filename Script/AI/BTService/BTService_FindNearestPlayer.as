@@ -18,6 +18,10 @@ class UBTService_FindNearestPlayer : UBTService_BlueprintBase {
 	default IsHitReacting.AllowedTypes.Add(BoolType);
 
 	UPROPERTY()
+	FBlackboardKeySelector IsHealthCiritical;
+	default IsHealthCiritical.AllowedTypes.Add(BoolType);
+
+	UPROPERTY()
 	FBlackboardKeySelector CanRangeAttack;
 	default CanRangeAttack.AllowedTypes.Add(BoolType);
 

@@ -51,6 +51,9 @@ class AAuraEnemy : AAuraCharacterBase {
 		if (Tag == GameplayTags::Effects_HitReact) {
 			AIHelper::GetBlackboard(Controller).SetValueAsBool(AuraConst::AI_Blackboard_Key_IsHitReacting, TagExists);
 		}
+		if (Tag == GameplayTags::Effects_IsHealthCritical) {
+		   AIHelper::GetBlackboard(Controller).SetValueAsBool(AuraConst::AI_Blackboard_Key_IsHealthCritical, TagExists);
+		}
 	}
 
 	UFUNCTION(BlueprintOverride)
