@@ -70,9 +70,8 @@ class AAuraCharacterBase : AAngelscriptGASCharacter {
 	}
 
 	void BeHit(float32 Damage, EDamageType DamageType) {
-		if (DamageType == EDamageType::Miss) {
-			ShowFloatText(FText::FromString("Miss"), FLinearColor::Gray);
-			return;
+		if (DamageType == EDamageType::Bad) {
+			ShowFloatText(FText::FromString("Bad"), FLinearColor::Gray);
 		}
 
 		if (Damage <= 0) {
@@ -85,7 +84,10 @@ class AAuraCharacterBase : AAngelscriptGASCharacter {
 			DamageColor = FLinearColor::Red;
 		} else if (DamageType == EDamageType::Lucky) {
 			DamageColor = FLinearColor::Green;
+		}else if (DamageType == EDamageType::Bad) {
+			DamageColor = FLinearColor::Black;
 		}
+
 		ShowFloatText(FText::AsNumber(Damage, FNumberFormattingOptions()), DamageColor);
 		
 		// 受击动画

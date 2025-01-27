@@ -39,14 +39,7 @@ class UExecCalc_Damage : UGameplayEffectExecutionCalculation {
 		FGameplayEffectExecutionParameters EvalParams;
 		EvalParams.SetIncludePredictiveMods(true);
 
-		// 是否命中
-		float32 SourceAccuracy = GetAttributeMagnitude(ExecutionParams, SourceAccuracyDef, EvalParams);
-		float32 TargetEvasion = GetAttributeMagnitude(ExecutionParams, TargetEvasionDef, EvalParams);
-		bool bIsHit = Math::RandRange(0, 1) < Math::Clamp((SourceAccuracy - TargetEvasion), AuraConst::HitChanceMin, AuraConst::HitChanceMax);
-		if (!bIsHit) {
-			SetDamage(OutExecutionOutput, 0, EDamageType::Miss);
-			return;
-		}
+
 
 		EDamageType DamageType = EDamageType::None;
 
@@ -66,6 +59,15 @@ class UExecCalc_Damage : UGameplayEffectExecutionCalculation {
 		// 计算伤害
 		float32 TargetDefense = GetAttributeMagnitude(ExecutionParams, TargetDefenseDef, EvalParams);
 		float32 Damage = Math::Max(float32(1), SourceAttackPower - TargetDefense);
+
+		// 将未命中改为半伤
+		float32 SourceAccuracy = GetAttributeMagnitude(ExecutionParams, SourceAccuracyDef, EvalParams);
+		float32 TargetEvasion = GetAttributeMagnitude(ExecutionParams, TargetEvasionDef, EvalParams);
+		bool bIsHit = Math::RandRange(0, 1) < Math::Clamp((SourceAccuracy - TargetEvasion), AuraConst::HitChanceMin, AuraConst::HitChanceMax);
+		if (!bIsHit) {
+			SetDamage(OutExecutionOutput, Damage * 0.5, EDamageType::Bad);
+			return;
+		}
 
 		// 计算暴击
 		float32 SourceCriticalChance = GetAttributeMagnitude(ExecutionParams, SourceCriticalChanceDef, EvalParams);

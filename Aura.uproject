@@ -1,6 +1,6 @@
 {
 	"FileVersion": 3,
-	"EngineAssociation": "{64B90DA0-487F-DD8E-94E7-75A87EC42FFD}",
+	"EngineAssociation": "{BA5A0DE8-4A95-C314-66A9-69A760A72F59}",
 	"Category": "",
 	"Description": "",
 	"Plugins": [
@@ -26,6 +26,13 @@
 		{
 			"Name": "MotionWarping",
 			"Enabled": true
+		},
+		{
+			"Name": "MobileFSR",
+			"Enabled": true,
+			"SupportedTargetPlatforms": [
+				"Android"
+			]
 		}
 	]
 }

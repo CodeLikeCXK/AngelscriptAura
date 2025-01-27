@@ -27,7 +27,7 @@ enum ETickerFuncType {
 
 enum EDamageType {
 	None     = 0,
-	Miss     = 1,
+	Bad     = 1,
 	Lucky    = 2,
 	Critical = 3,
 }
