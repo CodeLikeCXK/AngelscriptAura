@@ -20,8 +20,8 @@ class UBTTask_GoAroundTarget : UBTTask_BlueprintBase {
 		FVector RandomLocation;
 		if (!UNavigationSystemV1::GetRandomLocationInNavigableRadius(Target.GetActorLocation(), RandomLocation, 300)) {
 			return false;
-		}
-
+		}	
+		
 		BlackboardComponent.SetValueAsVector(AroundTarget.SelectedKeyName, RandomLocation);
 		// AIHelper::SimpleMoveToLocation(OwnerController, RandomLocation);
 		System::DrawDebugSphere(RandomLocation, 10, 12, FLinearColor::DPink, 0.5);

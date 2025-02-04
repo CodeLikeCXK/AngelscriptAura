@@ -81,4 +81,7 @@ class AAuraEnemy : AAuraCharacterBase {
 		}
 	}
 
+
+
+
 }

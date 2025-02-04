@@ -31,11 +31,11 @@ class USDataMgr : UObject {
 
 	private void LoadInput() {
 		UDataTable SDataInput = Cast<UDataTable>(LoadObject(this, "/Game/SData/DT_SData_Input"));
-
 		TArray<FSDataInput> AllInputs;
 		SDataInput.GetAllRows(AllInputs);
 		for (FSDataInput Input : AllInputs) {
 			InputMap.Add(Input.InputAction, Input);
+			Print(Input.InputAction.ToString());
 		}
 	}
 
